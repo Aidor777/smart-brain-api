@@ -1,6 +1,6 @@
 const handleProfileGet = (req, res, db) => {
   const { id } = req.params;
-  
+
   db.select("*")
     .from("users")
     .where({ id })
@@ -11,7 +11,10 @@ const handleProfileGet = (req, res, db) => {
         res.status(400).json("Not found");
       }
     })
-    .catch((err) => res.status(400).json("error getting user"));
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json("error getting user");
+    });
 };
 
 module.exports = {

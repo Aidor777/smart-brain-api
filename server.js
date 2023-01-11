@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
+const morgan = require("morgan");
 const cors = require("cors");
 const knex = require("knex");
 
@@ -11,15 +12,12 @@ const image = require("./controllers/image");
 
 const db = knex({
   client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "guillaume",
-    password: "password",
-    database: "smart-brain",
-  },
+  connection: process.env.DB_URI,
 });
 
 const app = express();
+
+app.use(morgan("combined"));
 
 app.use(cors());
 
